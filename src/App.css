@@ -1,0 +1,19 @@
+div {
+  background-color: #3f3f3f;;
+  width: 100%;
+  margin: auto;
+  color: white;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.buttons:hover{
+  cursor: pointer;
+}
+
+
+.App {
+  display: flex;
+  margin-top: 20%;
+
+}
