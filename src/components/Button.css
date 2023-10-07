@@ -10,7 +10,7 @@ button {
 }
 
 button:hover {
-    background-color: reg(61, 42, 184);
+    background-color: rgb(61, 42, 184);
 }
 
 .equals {
