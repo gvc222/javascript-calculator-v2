@@ -18,9 +18,8 @@ const toLocaleString = (num) =>
 
 const removeSpaces = (num) => num.toString().replace(/\s/g, "");
 
-function App() {
+const App = () => {
   
-
   let [calc, setCalc] = useState({
     sign: "",
     num: 0,
@@ -74,7 +73,7 @@ function App() {
       ? a + b
       : sign === "-"
       ? a - b
-      : sign === "*"
+      : sign === "X"
       ? a * b
       : a / b;
     
@@ -83,23 +82,25 @@ function App() {
         res:
         calc.num === "0" && calc.sign === "/"
         ? "Can't divide with 0"
-        : math(
-          Number(removeSpaces(calc.res)), 
-          Number(removeSpaces(calc.num)), 
-          calc.sign),
+        : toLocaleString(
+          math(
+            Number(removeSpaces(calc.res)), 
+            Number(removeSpaces(calc.num)), 
+          calc.sign
+            )
+          ),
         sign: "",
         num: 0
       })
     }
-
-    
   }
 
   const invertClickHandler = () => {
     setCalc({
       ...calc,
       num : calc.num ? toLocaleString(removeSpaces(calc.num) * -1) : 0,
-      res: calc.res ? toLocaleString(removeSpaces(calc.res) * -1) : 0
+      res: calc.res ? toLocaleString(removeSpaces(calc.res) * -1) : 0,
+      sign: ""
     })
   }
 
@@ -118,44 +119,41 @@ function App() {
 
     setCalc({
       ...calc,
-      num: (num /= Math.pow(100,1)),
+      num: (num /= Math.pow(100, 1)),
       res: (res /= Math.pow(100, 1)),
       sign: ""
     })
   }
+
   return (
     <Wrapper>
       <Screen value={calc.num ? calc.num : calc.res}/>
       <ButtonBox>
-        {btnValues.flat().map((btn, index) => {
+        {btnValues.flat().map((btn, i) => {
           return (
             <Button
-            key={index}
-            className={btn === "=" ? "equals" : ""}
-            value={btn}
-            onClick={
-              btn === "C"
-                ? resetClickHandler
-                : btn === "+-"
-                ? invertClickHandler
-                : btn === "%"
-                ? percentClickHandler
-                : btn === "="
-                ? equalsClickHandler
-                : btn --- "/" || btn === "X" || btn === "-" || btn === "+"
-                ? signClickHandler
-                : btn === "."
-                ? commaClickHandler
-                : numClickHandler
-            }
-
+              key={i}
+              className={btn === "=" ? "equals" : ""}
+              value={btn}
+              onClick={
+                btn === "C"
+                  ? resetClickHandler
+                  : btn === "+-"
+                  ? invertClickHandler
+                  : btn === "%"
+                  ? percentClickHandler
+                  : btn === "="
+                  ? equalsClickHandler
+                  : btn === "/" || btn === "X" || btn === "-" || btn === "+"
+                  ? signClickHandler
+                  : btn === "."
+                  ? commaClickHandler
+                  : numClickHandler
+              }
             />
-
           )
         })}
-       
       </ButtonBox>
-
     </Wrapper>
   );
 }
